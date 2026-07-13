@@ -1,7 +1,15 @@
 name: 06 - Contexts
+env:
+  MY_WORKFLOW_VAR: 'workflow'
+  MY_OVERWRITTEN_VAR: 'workflow'
+on:
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        default: false
 
-on: workflow_dispatch
-
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 jobs:
   echo-data:
     runs-on: ubuntu-latest
@@ -9,6 +17,8 @@ jobs:
       - name: Display context information
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
+          MY_JOB_VAR: 'job'
+          MY_OVERWRITTEN_VAR: 'job'
         run: echo "$GITHUB_CONTEXT"
       - name: Retrieve variable
         env:
@@ -23,3 +33,13 @@ jobs:
         env:
           GITHUB_RUNNER: ${{ toJson(runner) }}
         run: echo "$GITHUB_RUNNER"
+      - name: Display inputs information
+        env:
+          GITHUB_INPUTS: ${{ toJson(inputs) }}
+        run: echo "$GITHUB_INPUTS"
+      - name: Print Env Variables
+        env:
+          MY_OVERWRITTEN_VAR: 'step'
+        run: |
+          echo "Workflow env: $MY_WORKFLOW_VAR"
+          echo "Overwritten env: $MY_OVERWRITTEN_VAR"
