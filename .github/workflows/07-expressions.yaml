@@ -27,6 +27,3 @@ jobs:
         run: echo "I was trigged from main"
       - name: Greeting
         run: echo "Hello, world"
-
-
-
