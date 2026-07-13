@@ -19,7 +19,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           MY_JOB_VAR: 'job'
           MY_OVERWRITTEN_VAR: 'job'
-        run: echo "$GITHUB_CONTEXT"
+        run: echo ${{ env.GITHUB_CONTEXT }}
       - name: Retrieve variable
         env:
           MY_VAR: "Hello world"
@@ -28,11 +28,11 @@ jobs:
       - name: Display job information
         env:
           GITHUB_JOB: ${{ toJson(job) }}
-        run: echo "$GITHUB_JOB"
+        run: echo "${{ env.GITHUB_JOB }}"
       - name: Display runner information
         env:
           GITHUB_RUNNER: ${{ toJson(runner) }}
-        run: echo "$GITHUB_RUNNER"
+        run: echo "${{ env.GITHUB_RUNNER }}"
       - name: Display inputs information
         env:
           GITHUB_INPUTS: ${{ toJson(inputs) }}
@@ -41,5 +41,5 @@ jobs:
         env:
           MY_OVERWRITTEN_VAR: 'step'
         run: |
-          echo "Workflow env: $MY_WORKFLOW_VAR"
-          echo "Overwritten env: $MY_OVERWRITTEN_VAR"
+          echo "Workflow env: ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR }}"
