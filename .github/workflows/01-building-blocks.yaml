@@ -5,17 +5,18 @@ on:
   - workflow_dispatch
 
 jobs:
-  echo-hello:
+  echo-goodbye:
     runs-on: ubuntu-latest
     steps:
       - name: Say Hello
         run: echo "Hello, World"
-
-  echo-goodbye:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Failed step"
+      - name: Failed Step
         run: echo "i will fail"
-
-      - name: "Say goodby"
+      - name: Say goodbye
         run: echo "Goodbye"
+
+      - name: Multiline-batch
+        run: |
+          echo "I am"
+          echo "a multi-line"
+          echo "script."
