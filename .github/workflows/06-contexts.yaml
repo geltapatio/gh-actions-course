@@ -1,0 +1,25 @@
+name: 06 - Contexts
+
+on: workflow_dispatch
+
+jobs:
+  echo-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display context information
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Retrieve variable
+        env:
+          MY_VAR: "Hello world"
+        run: echo "$MY_VAR"
+
+      - name: Display job information
+        env:
+          GITHUB_JOB: ${{ toJson(job) }}
+        run: echo "$GITHUB_JOB"
+      - name: Display runner information
+        env:
+          GITHUB_RUNNER: ${{ toJson(runner) }}
+        run: echo "$GITHUB_RUNNER"
