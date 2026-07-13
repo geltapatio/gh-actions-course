@@ -1,0 +1,13 @@
+name: 04 - Using Actions
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+      - name: Printing Folders
+        run: echo "Folder structure ${{ github.action_path }}"
+
