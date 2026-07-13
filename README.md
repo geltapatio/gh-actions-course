@@ -1,0 +1,1 @@
+All examples for github actions course
