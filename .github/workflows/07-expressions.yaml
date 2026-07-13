@@ -22,7 +22,7 @@ jobs:
         if: inputs.debug == true && github.ref_name == 'main'
         run: echo "I was trigged from main"
       - name: Always executed
-        run: "Hello, world"
+        run: echo "Hello, world"
 
 
 
