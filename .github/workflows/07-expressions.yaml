@@ -1,13 +1,15 @@
 name: 07 - Using Expressions
+run-name: 07 - Using Expressions | DEBUG - <' ${{ inputs.debug && 'ON' || 'OFF'}}
 
+env:
+  MY_VAR_WITH_DEFAULT: ${{ vars.MY_VAR || 'default value'}}
+  
 on:
   workflow_dispatch:
     inputs:
       debug:
         type: boolean
         default: false
-
-run-name: 07 - Using Expressions | DEBUG - <'ON' if the debug input is true, 'OFF' otherwise>
 
 jobs:
   echo:
