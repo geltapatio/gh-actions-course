@@ -26,4 +26,4 @@ jobs:
     needs: build
     steps:
       - name: Deploy
-        run: "Deploying"
+        run: echo "Deploying"
