@@ -8,8 +8,15 @@ on:
   workflow_dispatch:
     inputs:
       debug:
+        description: 'Enable debug mode'
         type: boolean
         default: false
+      enviroment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options: [development, staging, production]
+        default: development
 
 jobs:
   echo:
@@ -25,5 +32,7 @@ jobs:
       - name: "[debug] Print when triggered from main"
         if: inputs.debug  && github.ref == 'refs/heads/main'
         run: echo "I was trigged from main"
+      - name: "[environment] Print environment"
+        run: echo "${{inputs.enviroment}}"
       - name: Greeting
         run: echo "Hello, world"
