@@ -15,8 +15,9 @@ jobs:
           - windows-latest
         include:
           - os: ubuntu-latest
-            node: 24.x
+            node: 25.x
           - os: ubuntu-latest
+            node: 26.x
             tag: experimental
           - os: ubuntu-latest
             node: 26.x
@@ -25,7 +26,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node}}
+          node-version: ${{ matrix.node }}
       - name: Fail if experimental
         if: matrix.tag == 'experimental'
         run: exit 1
