@@ -35,7 +35,7 @@ jobs:
       id: cache
       with:
         path: 13-caching/react-app/node_modules
-        key: deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}
+        key: ${{ needs.install-deps.outputs.deps-cache-key }}
     - name: Testing
       run: npm run test
     - name: Building
@@ -48,6 +48,8 @@ jobs:
     defaults:
       run:
         working-directory: 13-caching/react-app
+    outputs:
+      deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -57,14 +59,15 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Calculate cache key
         id: cache-key
-        run: echo "cache-key=deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}" >> "$CACHE_KEY"
+        run: |
+          echo "CACHE-KEYX=deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}" >> "$GITHUB_OUTPUT"
       - name: Download cached dependencies
         uses: actions/cache@v6
         if: ${{ inputs.use-cache }}
         id: cache
         with:
           path: 13-caching/react-app/node_modules
-          key: ${{ steps.cache-key }}
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
@@ -87,7 +90,7 @@ jobs:
         id: cache
         with:
           path: 13-caching/react-app/node_modules
-          key: ${{ needs.install-deps.outputs.CACHE_KEY }}
+          key: ${{ needs.install-deps.outputs.deps-cache-key }}
       - name: Testing
         run: npm run test
       - name: Linting
