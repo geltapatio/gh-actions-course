@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node and NPM Dependencies
         uses: ./.github/actions/composite-cache-deps
         with:
-          working-directory: ${{ env.working-directory }}
+          working-dir: ${{ env.working-directory }}
       - name: Test
         run: npm run test
       - name: Build
